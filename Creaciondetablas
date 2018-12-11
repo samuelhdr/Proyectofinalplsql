@@ -1,0 +1,8 @@
+Create table vehiculos (
+vehiculo int not null,
+marcha varchar(11),
+modelo varchar(11),
+ano date,
+estado varchar(6),
+fechaentra timestamp
+);
