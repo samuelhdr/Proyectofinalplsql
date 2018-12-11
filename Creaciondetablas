@@ -6,3 +6,48 @@ ano date,
 estado varchar(6),
 fechaentra timestamp
 );
+create table vehiculos
+(
+vehiculoid int not null,
+marca varchar(11),
+medole varchar(11),
+ano date,
+estado varchar(10),
+fechaen timestamp
+);
+
+create table registro(
+registroid int not null,
+fechaentra timestamp,
+fecha salida timestamp,
+clienteid int not null,
+mecanicoid,
+chequeoid
+);
+
+create table chequeo(
+chequeoid int not null,
+pieza varchar(30),
+des varchar(15),
+fechaini timestamp,
+fechafin timestamp,
+mecanicoid int,
+area varchar(20)
+
+);
+
+create table costo(
+costoid int not null,
+garantia varchar(12),
+precio int,
+clienteid int
+);
+create table cliente(
+cleinteid int not null,
+nombre varchar(25),
+apellido varchar(21),
+vehiculoid int 
+);
+desc costo;
+desc vehiculo;
+desc cliente;
