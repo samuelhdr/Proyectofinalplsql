@@ -21,6 +21,21 @@ chequeoid int
 alter table registro 
 add constraint registro_pk primary key (registroid);
 
+alter table registro
+add constraint clinete_fk 
+foreign key (clienteid)
+references cliente (clienteid);
+
+alter table registro
+add constraint chequeo_fk 
+foreign key (chequeoid)
+references chequeo (chequeoid);
+
+alter table registro 
+add constraint mecanico_fk
+foreign key (mecanicoid)
+references mecanico (mecanicoid);
+
 create table chequeo(
 chequeoid int not null,
 pieza varchar(30),
@@ -33,16 +48,36 @@ area varchar(20)
 );
 alter table  chequeo
 add constraint chequeo_pk primary key (chequeoid);
+alter table chequeo 
+add clienteid int;
 
-select count(*) from registro;
+alter table chequeo
+add constraint fk_mecanico
+foreign key (mecanicoid)
+references mecanico (mecanicoid);
+
+alter table chequeo
+add constraint clinete_fk2 
+foreign key (clienteid)
+references cliente (clienteid);
+
+
+
+
 create table costo(
 costoid int not null,
 garantia char,
 precio int,
-clienteid
+clienteid int
 );
-alter table registro
-add constraint registro_pk primary key (registroid);
+alter table costo
+add constraint costo_pk primary key (costoid);
+
+alter table costo 
+add constraint cliente_fk2
+foreign key (clienteid)
+references cliente(clienteid);
+
 create table cliente(
 clienteid int not null,
 nombre varchar(11),
@@ -50,5 +85,24 @@ apellido varchar(11),
 vehiculoid int,
 ciudad varchar(20)
 );
+alter table cliente
+add constraint cliente_pk primary key (clienteid);
 
-desc cliente;
+alter table cliente
+add constraint vehiculo_fk2
+foreign key (vehiculoid)
+references vehiculos (vehiculoid);
+
+create table mecanico
+(
+mecanicoid int not null,
+nombre varchar(12),
+apellido varchar(12),
+horaentra timestamp,
+horasalida timestamp,
+estado varchar(11),
+trabajo varchar(20)
+);
+alter table mecanico
+add constraint pk_mecanico primary key (mecanicoid);
+
