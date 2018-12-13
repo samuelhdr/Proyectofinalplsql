@@ -1,0 +1,54 @@
+create table vehiculos
+(
+vehiculoid int not null,
+marca varchar(11),
+medole varchar(11),
+ano date,
+estado varchar(10),
+fechaen timestamp
+);
+ALTER TABLE vehiculos
+ADD CONSTRAINT vehiculo_pk PRIMARY KEY (vehiculoid);
+
+create table registro(
+registroid int not null,
+fechaentra timestamp,
+fechasalida timestamp,
+clienteid int not null,
+mecanicoid INT,
+chequeoid int 
+);
+alter table registro 
+add constraint registro_pk primary key (registroid);
+
+create table chequeo(
+chequeoid int not null,
+pieza varchar(30),
+des varchar(15),
+fechaini timestamp,
+fechafin timestamp,
+mecanicoid int,
+area varchar(20)
+
+);
+alter table  chequeo
+add constraint chequeo_pk primary key (chequeoid);
+
+select count(*) from registro;
+create table costo(
+costoid int not null,
+garantia char,
+precio int,
+clienteid
+);
+alter table registro
+add constraint registro_pk primary key (registroid);
+create table cliente(
+clienteid int not null,
+nombre varchar(11),
+apellido varchar(11),
+vehiculoid int,
+ciudad varchar(20)
+);
+
+desc cliente;
