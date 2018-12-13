@@ -1,11 +1,3 @@
-Create table vehiculos (
-vehiculo int not null,
-marcha varchar(11),
-modelo varchar(11),
-ano date,
-estado varchar(6),
-fechaentra timestamp
-);
 create table vehiculos
 (
 vehiculoid int not null,
@@ -15,7 +7,6 @@ ano date,
 estado varchar(10),
 fechaen timestamp
 );
-
 ALTER TABLE vehiculos
 ADD CONSTRAINT vehiculo_pk PRIMARY KEY (vehiculoid);
 
@@ -24,13 +15,25 @@ registroid int not null,
 fechaentra timestamp,
 fechasalida timestamp,
 clienteid int not null,
-mecanicoid int,
+mecanicoid INT,
 chequeoid int 
 );
+alter table registro 
+add constraint registro_pk primary key (registroid);
+alter table registro
+add constraint clinete_fk 
+foreign key (clienteid)
+references cliente (clienteid);
 
 alter table registro
-add constraint registro_pk primary key (registroid);
+add constraint chequeo_fk 
+foreign key (chequeoid)
+references chequeo (chequeoid);
 
+alter table registro 
+add constraint mecanico_fk
+foreign key (mecanicoid)
+references mecanico (mecanicoid);
 
 create table chequeo(
 chequeoid int not null,
@@ -42,25 +45,55 @@ mecanicoid int,
 area varchar(20)
 
 );
+alter table  chequeo
+add constraint chequeo_pk primary key (chequeoid);
+alter table chequeo 
+add clienteid int;
+
 alter table chequeo
-add constraint chequeoid_pk primary key (chequeoid);
+add constraint fk_mecanico
+foreign key (mecanicoid)
+references mecanico (mecanicoid);
+
+alter table chequeo
+add constraint clinete_fk2 
+foreign key (clienteid)
+references cliente (clienteid);
+
+
+
 
 create table costo(
 costoid int not null,
-garantia varchar(12),
+garantia char,
 precio int,
 clienteid int
 );
 alter table costo
-add constraint costoid_pk primary key (costoid);
-create table cliente(
-cleinteid int not null,
-nombre varchar(25),
-apellido varchar(21),
-vehiculoid int 
+add constraint costo_pk primary key (costoid);
 
-alter table cliente 
-add constraint cleinteid_pk primary key (cleinteid);
+create table cliente(
+clienteid int not null,
+nombre varchar(11),
+apellido varchar(11),
+vehiculoid int,
+ciudad varchar(20)
+);
+alter table cliente
+add constraint cliente_pk primary key (clienteid);
+
+create table mecanico
+(
+mecanicoid int not null,
+nombre varchar(12),
+apellido varchar(12),
+horaentra timestamp,
+horasalida timestamp,
+estado varchar(11),
+trabajo varchar(20)
+);
+alter table mecanico
+add constraint pk_mecanico primary key (mecanicoid);
 
 create sequence seq_clienteid
 increment by 10;
